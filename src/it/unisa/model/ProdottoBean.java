@@ -35,12 +35,12 @@ private static final long serialVersionUID = 1L;
 		this.descrizione = descrizione;
 	}
 	
-	public int getQuantità() {
-		return quantità;
+	public int getQuantita() {
+		return quantit;
 	}
 	
-	public void setQuantità(int quantità) {
-		this.quantità = quantità;
+	public void setQuantita(int quantita) {
+		this.quantit = quantita;
 	}
 	
 	
@@ -111,14 +111,14 @@ private static final long serialVersionUID = 1L;
 	
 	@Override
 	public String toString() {
-		return nome +", " + idProdotto +", " + prezzo +", " + descrizione +", " + piattaforma +", " + quantità +", " + genere+", "+ immagine+", " + dataUscita + ", " +iva;
+		return nome +", " + idProdotto +", " + prezzo +", " + descrizione +", " + piattaforma +", " + quantit +", " + genere+", "+ immagine+", " + dataUscita + ", " +iva;
 	}
 
 	private int idProdotto;
 	private String piattaforma;
 	private String nome;
 	private String descrizione;
-	private int quantità;
+	private int quantit;
 	private String dataUscita;
 	private boolean inVendita;
 	private String iva;
