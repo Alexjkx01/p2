@@ -103,7 +103,7 @@ function validate(obj) {
 	
 	
 	if(valid)
-		obj.submit();	
+		obj.submit() ;	
 }
 
 
