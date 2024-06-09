@@ -5,9 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedList;
-
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -38,7 +35,7 @@ public class ProdottoDao implements ProdottoDaoInterfaccia{
 		PreparedStatement preparedStatement = null;
 
 		String insertSQL = "INSERT INTO " + ProdottoDao.TABLE_NAME
-				+ " (NOME, PIATTAFORMA, DESCRIZIONE, PREZZO, QUANTITA, GENERE, DATA_USCITA, IN_VENDITA, IVA, IMMAGINE, DESCRIZIONE_DETTAGLIATA) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+				+ " (NOME, PIATTAFORMA, DESCRIZIONE, PREZZO, QUANTITA, GENERE, DATA_USCITA, IN_VENDITA, IVA, IMMAGINE, DESCRIZIONE_DETTAGLIATA) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 		try {
 			connection = ds.getConnection();
@@ -49,13 +46,12 @@ public class ProdottoDao implements ProdottoDaoInterfaccia{
 			preparedStatement.setString(3, product.getDescrizione());
 			preparedStatement.setDouble(4, product.getPrezzo());
 			preparedStatement.setInt(5, product.getQuantita());
-			preparedStatement.setString(6,product.getGenere());
+			preparedStatement.setString(6, product.getGenere());
 			preparedStatement.setString(7, product.getDataUscita());
 			preparedStatement.setBoolean(8, product.isInVendita());
 			preparedStatement.setString(9, product.getIva());
 			preparedStatement.setString(10, product.getImmagine());
 			preparedStatement.setString(11, product.getDescrizioneDettagliata());
-
 
 			preparedStatement.executeUpdate();
 
@@ -100,8 +96,6 @@ public class ProdottoDao implements ProdottoDaoInterfaccia{
 				bean.setImmagine(rs.getString("IMMAGINE"));
 				bean.setGenere(rs.getString("GENERE"));
 				bean.setDescrizioneDettagliata(rs.getString("DESCRIZIONE_DETTAGLIATA"));
-
-
 			}
 
 		} finally {
@@ -153,7 +147,7 @@ public class ProdottoDao implements ProdottoDaoInterfaccia{
 
 		String selectSQL = "SELECT * FROM " + ProdottoDao.TABLE_NAME;
 
-		if (order != null && !order.equals("")) {
+		if (order != null && !order.isEmpty()) {
 			selectSQL += " ORDER BY " + order;
 		}
 
@@ -211,8 +205,6 @@ public class ProdottoDao implements ProdottoDaoInterfaccia{
 			preparedStatement.setInt(1, qnt);
 			preparedStatement.setInt(2, id);
 
-			
-
 			preparedStatement.executeUpdate();
 
 			connection.commit();
@@ -245,78 +237,20 @@ public class ProdottoDao implements ProdottoDaoInterfaccia{
 			preparedStatement.setString(3, product.getPiattaforma());
 			preparedStatement.setString(4, product.getDescrizione());
 			preparedStatement.setDouble(5, product.getPrezzo());
-			preparedStatement.setString(6,product.getGenere());
+			preparedStatement.setString(6, product.getGenere());
 			preparedStatement.setString(7, product.getDataUscita());
-			preparedStatement.setBoolean(8, true);
+			preparedStatement.setBoolean(8, product.isInVendita());
 			preparedStatement.setString(9, product.getIva());
 			preparedStatement.setString(10, product.getImmagine());
 			preparedStatement.setString(11, product.getDescrizioneDettagliata());
 			preparedStatement.setInt(12, product.getIdProdotto());
 
-			
-
 			preparedStatement.executeUpdate();
 
-			connection.commit();
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-	}
-	
+			connection
+
 	@Override
-	public synchronized ArrayList<ProdottoBean> doRetrieveByPiattaforma(String piattaforma) throws SQLException {
-		Connection connection = null;
-		PreparedStatement preparedStatement = null;
-
-		ArrayList<ProdottoBean> prodotti = new ArrayList<>();
-
-		String selectSQL = "SELECT * FROM " + ProdottoDao.TABLE_NAME + " WHERE PIATTAFORMA = ?";
-
-		try {
-			connection = ds.getConnection();
-			preparedStatement = connection.prepareStatement(selectSQL);
-			preparedStatement.setString(1, piattaforma);
-
-			ResultSet rs = preparedStatement.executeQuery();
-
-			while (rs.next()) {
-				ProdottoBean bean = new ProdottoBean();
-				bean.setIdProdotto(rs.getInt("ID_PRODOTTO"));
-				bean.setNome(rs.getString("NOME"));
-				bean.setDescrizione(rs.getString("DESCRIZIONE"));
-				bean.setPrezzo(rs.getDouble("PREZZO"));
-				bean.setQuantita(rs.getInt("QUANTITA"));
-				bean.setPiattaforma(rs.getString("PIATTAFORMA"));
-				bean.setIva(rs.getString("IVA"));
-				bean.setDataUscita(rs.getString("DATA_USCITA"));
-				bean.setInVendita(rs.getBoolean("IN_VENDITA"));
-				bean.setImmagine(rs.getString("IMMAGINE"));
-				bean.setGenere(rs.getString("GENERE"));
-				bean.setDescrizioneDettagliata(rs.getString("DESCRIZIONE_DETTAGLIATA"));
-				
-				prodotti.add(bean);
-
-
-			}
-
-		} finally {
-			try {
-				if (preparedStatement != null)
-					preparedStatement.close();
-			} finally {
-				if (connection != null)
-					connection.close();
-			}
-		}
-		return prodotti;
+	public ArrayList<ProdottoBean> doRetrieveByPiattaforma(String piattaforma) throws SQLException {
+		// TODO Auto-generated method stub
+		return null;
 	}
-	
-	
-
-}
